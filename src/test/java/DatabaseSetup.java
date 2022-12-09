@@ -1,17 +1,13 @@
-import org.junit.jupiter.api.*;
-
-import static org.testcontainers.shaded.org.hamcrest.MatcherAssert.*;
-import static org.testcontainers.shaded.org.hamcrest.Matchers.matchesPattern;
-import static org.testcontainers.shaded.org.hamcrest.Matchers.not;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.TestInstance;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DatabaseSetup extends IntegrationTestBase {
 
     @BeforeAll
     @DisplayName("Preparing test data in Database")
-    public void insertTestingDataIntoDatabase() {
+    public void insertTestingDataIntoDatabase()  {
         insertIntoDatabase("insert into COUNTRIES (CODE, NAME) VALUES ('RUS', 'Russia')");
         insertIntoDatabase("insert into PHONE_CODE (PHN_CD, CNTR_CD) VALUES ('7', 'RUS')");
         insertIntoDatabase("insert into COUNTRIES (CODE, NAME) VALUES ('BEL', 'Belarus')");

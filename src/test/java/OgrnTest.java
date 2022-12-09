@@ -11,10 +11,12 @@ public class OgrnTest extends DatabaseSetup {
     @DisplayName("Check if OGRN is present only by companies and INN by physics is 12 digits long")
     public void ogrnOnlyByCompaniesTest() {
         String strFIRMA=  selectFromDatabase("SELECT OGRN FROM COUNTERPARTIES where SHORT_NAME = 'FIRMA-5'");
+        String strFIRMAInn=  selectFromDatabase("SELECT INN FROM COUNTERPARTIES where SHORT_NAME = 'FIRMA-5'");
         String strVIKTOROgrn =  selectFromDatabase("SELECT OGRN FROM COUNTERPARTIES where SHORT_NAME = 'VIKTOR'");
         String strVIKTORInn =  selectFromDatabase("SELECT INN FROM COUNTERPARTIES where SHORT_NAME = 'VIKTOR'");
         assertNotNull(strFIRMA);
         assertNull(strVIKTOROgrn);
+        assertThat(strFIRMAInn, matchesPattern("^\\d{10}"));
         assertThat(strVIKTORInn, matchesPattern("^\\d{12}"));
 
     }

@@ -1,0 +1,30 @@
+DROP TABLE IF EXISTS COUNTERPARTIES;
+DROP TABLE IF EXISTS COUNTRIES;
+DROP TABLE IF EXISTS PHONE_CODE;
+
+CREATE TABLE COUNTERPARTIES(
+                    SID VARCHAR(20) PRIMARY KEY,
+                    INN VARCHAR(12) NOT NULL,
+                    OGRN VARCHAR(10) DEFAULT NULL,
+                    SHORT_NAME VARCHAR(20) NOT NULL,
+                    FULL_NAME VARCHAR(200) NOT NULL,
+                    COUNTRY_CD VARCHAR(3) NOT NULL,
+                    ADDRESS VARCHAR(200) NOT NULL,
+                    PHONE VARCHAR(20)
+);
+
+create table COUNTRIES(
+                    CODE VARCHAR(3) UNIQUE,
+                    NAME VARCHAR(100) NOT NULL
+);
+
+create table PHONE_CODE(
+                    PHN_CD VARCHAR(2) NOT NULL,
+                    CNTR_CD VARCHAR(3) UNIQUE
+);
+
+alter table COUNTERPARTIES add constraint fk1
+FOREIGN KEY (COUNTRY_CD) REFERENCES COUNTRIES (CODE);
+
+alter table COUNTERPARTIES add constraint fk2
+FOREIGN KEY (COUNTRY_CD) REFERENCES PHONE_CODE (CNTR_CD);
